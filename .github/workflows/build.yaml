@@ -34,19 +34,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.13
 
-      - name: Install packages
+      - name: Install dependencies
         run: |
-          pip install ./allure-python-commons \
-            ./allure-python-commons-test \
-            ./allure-pytest \
-            pytest==${{ matrix.pytest-version }} \
-            -r ./requirements/testing.txt \
-            -r ./requirements/testing/allure-pytest.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
 # i just add installation for allurectl
       - name: Install allurectl
@@ -71,18 +67,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.13
 
-      - name: Install packages
+      - name: Install dependencies
         run: |
-          pip install ./allure-python-commons \
-            ./allure-python-commons-test \
-            ./${{ matrix.package }} \
-            -r ./requirements/testing.txt \
-            -r ./requirements/testing/${{ matrix.package }}.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
 # i just add installation for allurectl
       - name: Install allurectl
