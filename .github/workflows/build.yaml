@@ -1,9 +1,28 @@
 name: build allure python
 
 on:
-  pull_request:
-    branches:
-      - master
+# i just delete this section
+#  pull_request:
+#    branches:
+#      - master
+# i just delete this section
+
+# i just correct this section
+  push:
+  workflow_dispatch:
+    inputs:
+      ALLURE_JOB_RUN_ID:
+        description: ALLURE_JOB_RUN_ID service parameter. Leave blank.
+      ALLURE_USERNAME:
+        description: ALLURE_USERNAME service parameter. Leave blank.
+
+env:
+  ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+  ALLURE_ENDPOINT: https://demo.qatools.cloud/
+  ALLURE_PROJECT_ID: 165
+  ALLURE_RESULTS: "allure-results"
+# i just correct this section
 
 jobs:
   pytest-changes:
@@ -110,9 +129,19 @@ jobs:
             -r ./requirements/testing.txt \
             -r ./requirements/testing/allure-pytest.txt
 
+# i just add installation for allurectl
+      - name: Install allurectl
+        uses: allure-framework/setup-allurectl@v1
+        with:
+          allure-endpoint: https://demo.qatools.cloud/
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: 165
+ # i just add installation for allurectl
+
       - name: Test allure-pytest
         working-directory: allure-pytest
         run: poe tests
+
 
   test-others:
     name: Test other packages
@@ -143,6 +172,15 @@ jobs:
             ./${{ matrix.package }} \
             -r ./requirements/testing.txt \
             -r ./requirements/testing/${{ matrix.package }}.txt
+
+# i just add installation for allurectl
+      - name: Install allurectl
+        uses: allure-framework/setup-allurectl@v1
+        with:
+          allure-endpoint: https://demo.qatools.cloud/
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: 165
+ # i just add installation for allurectl
 
       - name: Test ${{ matrix.package }}
         working-directory: ${{ matrix.package }}
