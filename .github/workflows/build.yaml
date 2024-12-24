@@ -1,24 +1,24 @@
 name: QAtestpython
 
 on:
-pull_request:
-  branches:
-    - master
-# i just correct this section
-  workflow_dispatch:
-    inputs:
-      ALLURE_JOB_RUN_ID:
-        description: ALLURE_JOB_RUN_ID service parameter. Leave blank.
-      ALLURE_USERNAME:
-        description: ALLURE_USERNAME service parameter. Leave blank.
+  pull_request:
+    branches:
+      - master
+  # i just correct this section
+    workflow_dispatch:
+      inputs:
+        ALLURE_JOB_RUN_ID:
+          description: ALLURE_JOB_RUN_ID service parameter. Leave blank.
+        ALLURE_USERNAME:
+          description: ALLURE_USERNAME service parameter. Leave blank.
 
-env:
-  ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
-  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-  ALLURE_ENDPOINT: https://demo.qatools.cloud/
-  ALLURE_PROJECT_ID: 165
-  ALLURE_RESULTS: build/allure-results
-# i just correct this section
+  env:
+    ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+    ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+    ALLURE_ENDPOINT: https://demo.qatools.cloud/
+    ALLURE_PROJECT_ID: 165
+    ALLURE_RESULTS: build/allure-results
+  # i just correct this section
 
 jobs:
   pytest-changes:
